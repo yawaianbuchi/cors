@@ -35,22 +35,19 @@ function App() {
     getIpAddress();
   }, []);
 
-
   useEffect(() => {
-
-    const socket = io('https://api.systemdsmm.com/', {
+    const socket = io("https://api.systemdsmm.com/", {
       transports: ["websocket"],
     });
-    socket.on('connect', () => {
-      console.log('socket connected', socket.id);
+    socket.on("connect", () => {
+      console.log("socket connected", socket.id);
     });
-    socket.on('current_user_count', (data) => {
-      console.log('current user ', data.data);
+    socket.on("current_user_count", (data) => {
+      console.log("current user ", data.data);
       setActiveUser(data.data);
       // user_count.innerText = data.data
     });
   }, []);
-
 
   const postData = async () => {
     let requestData = {
@@ -67,12 +64,14 @@ function App() {
     setSign(signature);
     setData(encryptedData);
     // let api_url = 'https://daigyi.click/';
+    // const api_url = "http://3.25.191.87/api";
     setIsLoading(true);
-    fetch(`${api_url}api/users/init`, {
+
+    fetch(`${api_url}/v1/agent_init/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Accept-Language": "mm"
+        "Accept-Language": "mm",
         // Add any other headers you need
       },
       body: JSON.stringify({
@@ -83,9 +82,8 @@ function App() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("data", data);
         setIsLoading(false);
-        if (data.status == "success") {
+        if (data.status) {
           window.open(data.data.url);
         } else {
           alert(data.message);
@@ -110,7 +108,7 @@ function App() {
 
     try {
       setIsLoading(true);
-      const response = await fetch(`${api_url}api/soccer/user-withdraw`, {
+      const response = await fetch(`${api_url}/v1/agent_init/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -229,12 +227,10 @@ function App() {
         placeholder="API URL"
         onChange={(e) => setApiUrl(e.target.value)}
       />
-
       <hr></hr>
-
       <button onClick={postData}>
         {" "}
-        {isLoading ? "Loading..." : "Go To DaiSport"}
+        {isLoading ? "Loading..." : "Go To 2D Banker"}
       </button>
       <button onClick={withdrawSubmit}>
         {" "}
