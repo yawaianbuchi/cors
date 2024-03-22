@@ -82,6 +82,7 @@ function App() {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log("backend resp", data);
         setIsLoading(false);
         if (data.status) {
           window.open(data.data.url);
@@ -108,7 +109,7 @@ function App() {
 
     try {
       setIsLoading(true);
-      const response = await fetch(`${api_url}/v1/agent_init/users`, {
+      const response = await fetch(`${api_url}/v1/customers/withdraw`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -124,7 +125,7 @@ function App() {
       if (response.ok) {
         const jsonData = await response.json();
         console.log("data", jsonData);
-        if (jsonData.status == "success") {
+        if (jsonData.status) {
           alert("withdraw success");
         } else {
           alert(jsonData.message);
