@@ -78,6 +78,7 @@ function App() {
         data: encryptedData,
         signature: signature,
         agent_code: agent_code,
+        lang:lan
       }),
     })
       .then((response) => response.json())
