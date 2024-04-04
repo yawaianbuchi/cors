@@ -88,7 +88,7 @@ function App() {
         if (data.status) {
           window.open(data.data.url);
         } else {
-          alert(data.message);
+          alert(`Your acc has been banned.${data.messages[0]}`);
         }
       })
       .catch((error) => {
